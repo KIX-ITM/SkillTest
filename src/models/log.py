@@ -7,6 +7,7 @@ class Database():
     def __init__(self):
         # echo=TrueでSQLをログで吐く用にしておく
         self.engine = create_engine('sqlite:///log.sql', echo=True)
+        # self.engine = create_engine('mysql+mysqlconnector://<user>:<password>@<host>[:<port>]/<dbname>', echo=True)
         self.connect_db()
 
     def connect_db(self):
