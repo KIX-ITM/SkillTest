@@ -8,10 +8,12 @@
     </head>
     <body>
         <div class="display">
-            <p>画像ファイルのPATHを入力してください</p>
-            <form action="/" method="post">
-                {{ form.image_path }}
-                <input type="submit" value="Submit">
+            <p>検索結果</p>
+            <p>{{ image_path }}</p>
+        </div>
+        <div class="back">
+            <form action="/">
+                <input type="submit" value="戻る">
             </form>
         </div>
     </body>
