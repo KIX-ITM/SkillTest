@@ -8,8 +8,20 @@
     </head>
     <body>
         <div class="display">
-            <p>検索結果</p>
-            <p>{{ image_path }}</p>
+            {% if error %}
+            <p>APIエラー</p>
+            <p>{{ error }}</p>
+            {% else %}
+            <p>レスポンス結果DB保存</p>
+            <p>id: {{ record.id }}</p>
+            <p>image_path: {{ record.image_path }}</p>
+            <p>success: {{ record.success }}</p>
+            <p>message: {{ record.message }}</p>
+            <p>class: {{ record.img_class }}</p>
+            <p>confidence: {{ record.confidence }}</p>
+            <p>request_timestamp: {{ record.request_timestamp }}</p>
+            <p>response_timestamp: {{ record.response_timestamp }}</p>
+            {% endif %}
         </div>
         <div class="back">
             <form action="/">

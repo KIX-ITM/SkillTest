@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, abort
 
 from src.controllers.forms import Form
 from src.models.log import AiAnalysisLog
+from src.controllers import lib
 import settings
 
 app = Flask(__name__, template_folder=settings.TEMPLATE_FOLDER)
@@ -12,7 +13,20 @@ def get_index():
     form = Form()
     if request.method == 'POST':
         image_path = request.form.get('image_path').strip()
-        return render_template('result.html', image_path=image_path)
+        response = lib.post_example_api(image_path)
+        if 'error' in response:
+            return render_template('result.html', log_data=None, error=response['error'])
+        else:
+            log_data = lib.create_log_data(
+                image_path,
+                response['response_data'],
+                response['request_timestamp'],
+                response['response_timestamp']
+            )
+            record = AiAnalysisLog.create(log_data)
+            record_dict = record.__dict__
+            print(record_dict)
+            return render_template('result.html', record=record_dict, error=None)
     return render_template('index.html', form=form)
 
 
