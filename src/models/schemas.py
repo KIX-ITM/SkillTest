@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class AiAnalysisLogSchema(BaseModel):
+    # テーブルに追加するデータモデル
     image_path: str
     success: str
     message: str

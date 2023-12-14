@@ -7,10 +7,12 @@ import settings
 
 
 def post(image_path):
+    # API実行
     url = settings.API_URL
     data = {
         'image_path': image_path,
     }
+    # ステータスコード200番台以外はエラーハンドリング
     try:
         response = requests.post(url, json=data)
         response.raise_for_status()
@@ -26,5 +28,6 @@ def post(image_path):
 
 
 def create_error_response(error_name, detail):
+    # エラー時のレスポンス内容を作成
     error_text = f'{error_name} {detail}'
     return dict(error=error_text)

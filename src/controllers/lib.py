@@ -6,6 +6,7 @@ import settings
 
 
 def create_log_data(image_path, response_data, request_timestamp, response_timestamp):
+    # DBに追加するレコードの内容を作成
     estimated_data = response_data['estimated_data']
     img_class = estimated_data['class'] if 'class' in estimated_data else None
     confidence = estimated_data['confidence'] if 'confidence' in estimated_data else None
@@ -22,6 +23,8 @@ def create_log_data(image_path, response_data, request_timestamp, response_times
 
 
 def post_example_api(image_path):
+    # example_api実行
+    # エラー又は実行結果を返す
     str_image_path = str(image_path)
     request_timestamp = datetime.now()
     response = example_api.post(str_image_path)
@@ -38,6 +41,8 @@ def post_example_api(image_path):
 
 
 def get_response_data(response):
+    # APIレスポンスからdataを取得
+    # テスト時はダミーのレスポンスdataをランダムで返す
     if settings.TEST:
         response_data = format_response_data(get_random_dummy_json_data())
     else:
@@ -46,6 +51,7 @@ def get_response_data(response):
 
 
 def format_response_data(response_json):
+    # APIレスポンスdataをdictに変換
     data = dict(
         success=response_json['success'],
         message=response_json['message'],
@@ -55,6 +61,7 @@ def format_response_data(response_json):
 
 
 def get_random_dummy_json_data():
+    # ダミーのレスポンスdataをランダムで取得し返す
     json_data_list = [
         settings.DUMMY_SUCCESS_RESPONSE_JSON,
         settings.DUMMY_FAILURE_RESPONSE_JSON

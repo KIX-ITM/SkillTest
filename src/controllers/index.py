@@ -10,6 +10,8 @@ app = Flask(__name__, template_folder=settings.TEMPLATE_FOLDER)
 
 @app.route('/', methods=['GET', 'POST'])
 def get_index():
+    # image_path入力画面
+    # image_pathをPOSTした場合はAPI結果を表示
     form = Form()
     if request.method == 'POST':
         image_path = request.form.get('image_path').strip()
@@ -33,6 +35,7 @@ def get_index():
 class WebServer():
 
     def start(self, debug=False):
+        # テスト用サーバー設定
         app.config['SECRET_KEY'] = settings.SECRET_KEY
         app.run(host='127.0.0.1', port=settings.PORT, debug=debug)
 
